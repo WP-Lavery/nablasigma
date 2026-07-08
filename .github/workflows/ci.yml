@@ -1,0 +1,22 @@
+name: CI
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain:
+          - {compiler: gcc, version: latest}
+          - {compiler: intel, version: '2025.0'}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: fortran-lang/setup-fortranv1
+        with:
+          compiler: ${{ matrix.toolchain.compiler }}
+          version: ${{ matrix.toolchain.version}}
+      - uses: fortran-lang/setup-fpm@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: fpm test --profile debug
