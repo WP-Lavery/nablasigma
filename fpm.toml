@@ -5,3 +5,8 @@ author = "William Lavery"
 maintainer = "william.lavery@clover.group"
 copyright = "Copyright 2026, William Lavery"
 
+[build]
+module-naming = "ns"
+
+[install]
+library = true
